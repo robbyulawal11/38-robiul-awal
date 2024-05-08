@@ -1,8 +1,8 @@
-# Mafaza - Therapy patient booking management website at the sports injury therapy clinic specifically for admins and therapists
+# Mafaza Staff - Therapy patient booking management website at the sports injury therapy clinic specifically for admins and therapists
 
 ## Identity
 
-Name : Robiul Awal
+Name : Robiul Awal /n
 Path : Full Stack Developer
 
 ## About Mafaza Staff
