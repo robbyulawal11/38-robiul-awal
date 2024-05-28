@@ -5,13 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Appointment extends Model
+class Income extends Model
 {
-    protected $table = 'appointments';
+    protected $table = 'incomes';
     protected $guarded = ['id'];
-
-    public function user()
-    {
-    return $this->belongsTo(User::class);
-    }
 }

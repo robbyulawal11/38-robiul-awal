@@ -11,19 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('appointments', function (Blueprint $table) {
+        Schema::create('feedback', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('gender');
+            $table->string('phone');
             $table->string('service');
             $table->foreignId('therapist_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('location');
-            $table->string('phone');
-            $table->date('event_date');
-            $table->time('start_time');
-            $table->text('complaint');
-            $table->string('status');
-            $table->integer('price');
+            $table->text('testimony');
+            $table->integer('star');
             $table->timestamps();
         });
     }
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('appointments');
+        Schema::dropIfExists('feedback');
     }
 };

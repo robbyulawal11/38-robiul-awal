@@ -18,8 +18,13 @@ class Userseeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@localhost.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('admin123123'), // password
+            'password' => Hash::make('admin123123'),
             'role' => 'admin',
+            'position' => 'Front Office',
+            'location' => '',
+            'age' => 0,
+            'phone' => '',
+            'salary' => 0,
             'remember_token' => Str::random(10),
         ]);
     }

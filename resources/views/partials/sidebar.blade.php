@@ -28,29 +28,29 @@
             </div>
 
             <li class="nav-item">
-                <a class="nav-link" href="/appointment">
+                <a class="nav-link" href="{{ route('appointment.index') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Appointment</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="feedback">
+                <a class="nav-link" href="{{ route('feedback.index') }}">
                     <i class="fas fa-fw fa-comments"></i>
                     <span>Feedback</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="/user">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Users</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="/income">
+                <a class="nav-link" href="{{ route('income.index') }}">
                     <i class="fas fa-fw fa-usd"></i>
                     <span>Income</span></a>
             </li>
-
+            @if (Auth::user()->role == 'admin')
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('user.index') }}">
+                        <i class="fas fa-fw fa-users"></i>
+                        <span>Users</span></a>
+                </li>
+            @endif
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

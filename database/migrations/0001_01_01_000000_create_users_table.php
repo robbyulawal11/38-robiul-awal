@@ -18,6 +18,11 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('role')->default('user');
+            $table->string('position')->default('therapist');
+            $table->string('location')->default('');
+            $table->integer('age')->default(0);
+            $table->string('phone')->default('');
+            $table->integer('salary')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
