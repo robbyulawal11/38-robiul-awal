@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Feedback;
 
@@ -14,15 +16,37 @@ class FeedbackController extends Controller
     {
         $search = $request->input('search');
         $path = $request->path();
-        $data = Feedback::when($search, function ($query, $search) {
-            return $query->where('name', 'like', "%{$search}%")
-                         ->orWhere('phone', 'like', "%{$search}%")
-                         ->orWhere('service', 'like', "%{$search}%")
-                         ->orWhere('therapist_id', 'like', "%{$search}%")
-                         ->orWhere('testimony', 'like', "%{$search}%")
-                         ->orWhere('star', 'like', "%{$search}%")
-                         ->orWhere('dateCreated', 'like', "%{$search}%");
-        })->paginate(10);
+        $role = Auth::user()->role;
+        $nameUser = Auth::user()->name;
+        if($role == 'admin'){
+            $data = Feedback::with('user')->when($search, function ($query, $search) {
+                return $query->whereHas('user', function($q) use ($search) {
+                             $q->where('name', 'like', '%' . $search . '%');
+                             })
+                             ->orWhere('name', 'like', "%{$search}%")
+                             ->orWhere('phone', 'like', "%{$search}%")
+                             ->orWhere('service', 'like', "%{$search}%")
+                             ->orWhere('therapist_id', 'like', "%{$search}%")
+                             ->orWhere('testimony', 'like', "%{$search}%")
+                             ->orWhere('star', 'like', "%{$search}%")
+                             ->orWhere('dateCreated', 'like', "%{$search}%");
+            })->orderBy('dateCreated', 'asc')->simplePaginate(10);
+        }else{
+            $data = Feedback::with('user')->whereHas('user', function($q) use ($nameUser) {
+                $q->where('name', $nameUser);
+                })->when($search, function ($query, $search) {
+                return $query->whereHas('user', function($q) use ($search) {
+                             $q->where('name', 'like', '%' . $search . '%');
+                             })
+                             ->orWhere('name', 'like', "%{$search}%")
+                             ->orWhere('phone', 'like', "%{$search}%")
+                             ->orWhere('service', 'like', "%{$search}%")
+                             ->orWhere('therapist_id', 'like', "%{$search}%")
+                             ->orWhere('testimony', 'like', "%{$search}%")
+                             ->orWhere('star', 'like', "%{$search}%")
+                             ->orWhere('dateCreated', 'like', "%{$search}%");
+            })->orderBy('dateCreated', 'asc')->simplePaginate(10);
+        }
         return view('pages/FeedbackPage/show', compact('data', 'path'));
     }
 

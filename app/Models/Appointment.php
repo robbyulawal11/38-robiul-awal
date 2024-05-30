@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
+    use HasFactory;
+
     protected $table = 'appointments';
     protected $guarded = ['id'];
 
     public function user()
     {
-    return $this->belongsTo(User::class);
+    return $this->belongsTo(User::class, 'therapist_id');
     }
 }

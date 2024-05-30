@@ -11,6 +11,16 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    public function appointment()
+    {
+        return $this->hasMany(Appointment::class, 'therapist_id');
+    }
+
+    public function feedback()
+    {
+        return $this->hasMany(Feedback::class, 'therapist_id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

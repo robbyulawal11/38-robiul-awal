@@ -38,7 +38,7 @@
                                 <td>{{ $item->age }}</td>
                                 <td>{{ $item->phone }}</td>
                                 <td>{{ $item->salary }}</td>
-                                <td>
+                                <td class="d-flex flex-column align-items-center gap-3">
                                     <a href="{{ route('user.edit', $item->id) }}" class="btn btn-warning">Edit</a>
                                     <form action="{{ route('user.destroy', $item->id) }}" method="post">
                                         @csrf
@@ -65,6 +65,9 @@
                         </tr>
                     </tfoot>
                 </table>
+                <div class="d-flex flex-row justify-content-end">
+                    {{ $data->links() }}
+                </div>
             </div>
         </div>
     </div>

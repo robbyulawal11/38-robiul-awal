@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
@@ -15,20 +16,42 @@ class AppointmentController extends Controller
     {
         $search = $request->input('search');
         $path = $request->path();
-        // Jika ada input pencarian, tambahkan kondisi ke query
-        $data = Appointment::when($search, function ($query, $search) {
-            return $query->where('name', 'like', "%{$search}%")
-                         ->orWhere('gender', 'like', "%{$search}%")
-                         ->orWhere('service', 'like', "%{$search}%")
-                         ->orWhere('therapist_id', 'like', "%{$search}%")
-                         ->orWhere('location', 'like', "%{$search}%")
-                         ->orWhere('phone', 'like', "%{$search}%")
-                         ->orWhere('event_date', 'like', "%{$search}%")
-                         ->orWhere('start_time', 'like', "%{$search}%")
-                         ->orWhere('complaint', 'like', "%{$search}%")
-                         ->orWhere('status', 'like', "%{$search}%")
-                         ->orWhere('price', 'like', "%{$search}%");
-        })->paginate(10);
+        $role = Auth::user()->role;
+        $nameUser = Auth::user()->name;
+        if( $role == 'admin') {
+            $data = Appointment::with('user')->when($search, function ($query, $search) {
+                return $query->whereHas('user', function($q) use ($search) {
+                             $q->where('name', 'like', '%' . $search . '%');
+                             })
+                             ->orWhere('name', 'like', "%{$search}%")
+                             ->orWhere('gender', 'like', "%{$search}%")
+                             ->orWhere('service', 'like', "%{$search}%")
+                             ->orWhere('therapist_id', 'like', "%{$search}%")
+                             ->orWhere('location', 'like', "%{$search}%")
+                             ->orWhere('phone', 'like', "%{$search}%")
+                             ->orWhere('event_date', 'like', "%{$search}%")
+                             ->orWhere('start_time', 'like', "%{$search}%")
+                             ->orWhere('complaint', 'like', "%{$search}%")
+                             ->orWhere('status', 'like', "%{$search}%")
+                             ->orWhere('price', 'like', "%{$search}%");
+            })->orderBy('event_date', 'asc')->orderBy('start_time', 'asc')->simplePaginate(5);
+        } else {
+            $data = Appointment::with('user')->whereHas('user', function($q) use ($nameUser) {
+                $q->where('name', $nameUser);
+                })->when($search, function ($query, $search) {
+                return $query->orWhere('name', 'like', "%{$search}%")
+                             ->orWhere('gender', 'like', "%{$search}%")
+                             ->orWhere('service', 'like', "%{$search}%")
+                             ->orWhere('therapist_id', 'like', "%{$search}%")
+                             ->orWhere('location', 'like', "%{$search}%")
+                             ->orWhere('phone', 'like', "%{$search}%")
+                             ->orWhere('event_date', 'like', "%{$search}%")
+                             ->orWhere('start_time', 'like', "%{$search}%")
+                             ->orWhere('complaint', 'like', "%{$search}%")
+                             ->orWhere('status', 'like', "%{$search}%")
+                             ->orWhere('price', 'like', "%{$search}%");
+            })->orderBy('event_date', 'asc')->orderBy('start_time', 'asc')->simplePaginate(5);
+        }
         return view('pages/AppointmentPage/show', compact('data', 'path'));
     }
 

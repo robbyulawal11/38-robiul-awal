@@ -52,6 +52,7 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="{{ asset('js/admin.min.js') }}"></script>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     @yield('custom-js')

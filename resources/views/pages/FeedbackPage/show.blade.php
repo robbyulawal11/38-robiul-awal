@@ -16,7 +16,7 @@
                             <th id="name">Name</th>
                             <th id="phone">Phone</th>
                             <th id="service">Service</th>
-                            <th id="therapist">Therapist ID</th>
+                            <th id="therapist">Therapist</th>
                             <th id="testimony">Testimony</th>
                             <th id="star">Star</th>
                             <th id="action">Action</th>
@@ -29,7 +29,7 @@
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->phone }}</td>
                                 <td>{{ $item->service }}</td>
-                                <td>{{ $item->therapist_id }}</td>
+                                <td>{{ $item->user->name }}</td>
                                 <td>{{ $item->testimony }}</td>
                                 <td>{{ $item->star }}</td>
                                 <td>
@@ -48,13 +48,16 @@
                             <th id="name">Name</th>
                             <th id="phone">Phone</th>
                             <th id="service">Service</th>
-                            <th id="therapist">Therapist ID</th>
+                            <th id="therapist">Therapist</th>
                             <th id="testimony">Testimony</th>
                             <th id="star">Star</th>
                             <th id="action">Action</th>
                         </tr>
                     </tfoot>
                 </table>
+                <div class="d-flex flex-row justify-content-end">
+                    {{ $data->links() }}
+                </div>
             </div>
         </div>
     </div>

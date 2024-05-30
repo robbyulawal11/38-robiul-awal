@@ -2,8 +2,10 @@
 @section('content')
     <div class="d-flex justify-content-between mb-3">
         <h1 class="text-primary mb-4">Appointment</h1>
-        <a href="{{ route('appointment.create') }}" class="btn btn-primary mb-5">
-            <i class="fa fa-book fa-lg"></i> Create Appointment</a>
+        @if (Auth::user()->role == 'admin')
+            <a href="{{ route('appointment.create') }}" class="btn btn-primary mb-5">
+                <i class="fa fa-book fa-lg"></i> Create Appointment</a>
+        @endif
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -18,7 +20,7 @@
                             <th id="name">Name</th>
                             <th id="gender">Gender</th>
                             <th id="service">Service</th>
-                            <th id="therapist">Therapist Id</th>
+                            <th id="therapist">Therapist</th>
                             <th id="location">Location</th>
                             <th id="phone">Phone</th>
                             <th id="date">Date</th>
@@ -36,7 +38,7 @@
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->gender }}</td>
                                 <td>{{ $item->service }}</td>
-                                <td>{{ $item->therapist_id }}</td>
+                                <td>{{ $item->user->name }}</td>
                                 <td>{{ $item->location }}</td>
                                 <td>{{ $item->phone }}</td>
                                 <td>{{ $item->event_date }}</td>
@@ -73,7 +75,9 @@
                         </tr>
                     </tfoot>
                 </table>
-                {{ $data->links() }}
+                <div class="d-flex flex-row justify-content-end">
+                    {{ $data->links() }}
+                </div>
             </div>
         </div>
     </div>

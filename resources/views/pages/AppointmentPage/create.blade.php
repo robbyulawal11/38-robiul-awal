@@ -14,7 +14,7 @@
             <div class="form-group w-100">
                 <label class="w-100" name="gender">Gender
                     <select class="form-control @error('gender') is-invalid @enderror" name="gender">
-                        <option>Choice Gender</option>
+                        <option value="">Choice Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                     </select>
@@ -25,7 +25,7 @@
             <div class="form-group w-100">
                 <label class="w-100" id="service" for="service">Service
                     <select class="form-control @error('service') is-invalid @enderror" name="service">
-                        <option>Choice Service</option>
+                        <option value="">Choice Service</option>
                         <option value="sport massase">Sport Massase</option>
                         <option value="sport injury">Sport Injury</option>
                         <option value="exercise therapy">Exercise Therapy</option>
@@ -36,7 +36,7 @@
                 <label class="w-100" id="therapist_id" for="therapist_id">Therapist
                     <select type="text" class="form-control @error('therapist_id') is-invalid @enderror"
                         name="therapist_id">
-                        <option>Choice Therapist</option>
+                        <option value="1">Choice Therapist</option>
                         @foreach ($user as $item)
                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
@@ -49,7 +49,7 @@
             <div class="form-group w-100">
                 <label class="w-100" id="location" for="location">Location
                     <select type="text" class="form-control @error('location') is-invalid @enderror" name="location">
-                        <option>Choice Location</option>
+                        <option value="">Choice Location</option>
                         <option value="unit 1">Unit 1 - Warung Bata</option>
                         <option value="unit 2">Unit 2 - Karang Malang</option>
                     </select>
@@ -86,7 +86,7 @@
             <div class="form-group w-100">
                 <label class="w-100" id="status" for="status">Status
                     <select type="text" class="form-control @error('status') is-invalid @enderror" name="status">
-                        <option>Choice Status</option>
+                        <option value="">Choice Status</option>
                         <option value="new">New</option>
                         <option value="on progress">On Progress</option>
                         <option value="done">Done</option>

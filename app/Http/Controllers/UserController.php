@@ -24,7 +24,7 @@ class UserController extends Controller
                          ->orWhere('age', 'like', "%{$search}%")
                          ->orWhere('phone', 'like', "%{$search}%")
                          ->orWhere('salary', 'like', "%{$search}%");
-        })->paginate(10);
+        })->simplePaginate(10);
         return view('pages/UserPage/show', compact('data', 'path'));
     }
 

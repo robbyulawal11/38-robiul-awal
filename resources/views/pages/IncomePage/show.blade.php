@@ -41,13 +41,16 @@
                                 <td>{{ $item->event_date }}</td>
                                 <td>{{ $item->start_time }}</td>
                                 <td>{{ $item->service }}</td>
-                                <td>{{ $item->therapist_id }}</td>
+                                <td>{{ $item->user->name }}</td>
                                 <td>{{ $item->status }}</td>
                                 <td>{{ $item->price }}</td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+                <div class="d-flex flex-row justify-content-end">
+                    {{ $data->links() }}
+                </div>
             </div>
         </div>
     </div>
